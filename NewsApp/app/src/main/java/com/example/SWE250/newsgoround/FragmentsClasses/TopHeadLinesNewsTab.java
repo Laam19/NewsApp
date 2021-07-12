@@ -22,13 +22,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
+import com.example.SWE250.newsgoround.api.ApiClient;
+import com.example.SWE250.newsgoround.api.ApiInterface;
+import com.example.SWE250.newsgoround.Adapter;
 import com.example.SWE250.newsgoround.DetailNewsContentActivity;
 import com.example.SWE250.newsgoround.MainActivity;
 import com.example.SWE250.newsgoround.Model.Article;
 import com.example.SWE250.newsgoround.Model.News;
-import com.example.SWE250.newsgoround.api.ApiClient;
-import com.example.SWE250.newsgoround.api.ApiInterface;
-import com.example.SWE250.newsgoround.Adapter;
 import com.example.SWE250.newsgoround.R;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LocalNewsTab extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class TopHeadLinesNewsTab extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     View view;
 
@@ -55,37 +55,21 @@ public class LocalNewsTab extends Fragment implements SwipeRefreshLayout.OnRefre
     private TextView errorTitle, errorMessage;
     private Button buttonRetry;
 
-    private FloatingSearchView floatingSearchView;
+    private FloatingSearchView mSearchView;
 
 
 
 
-    public LocalNewsTab(){
+
+
+    public TopHeadLinesNewsTab(){
 
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.tech_news_layout ,container ,false);
-
-
-        floatingSearchView = getActivity().findViewById(R.id.floating_search);
-        floatingSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
-            @Override
-            public void onSearchTextChanged(String oldQuery, final String newQuery) {
-
-                //get suggestions based on newQuery
-                //pass them on to the search view
-                //mSearchView.swapSuggestions(newSuggestions);
-                //Log.d("Query: ", newQuery);
-
-                    onLoadingSwipeRefresh(newQuery);
-
-
-
-            }
-        });
+        view = inflater.inflate(R.layout.top_headline_news_layout ,container ,false);
 
 
 
@@ -107,6 +91,11 @@ public class LocalNewsTab extends Fragment implements SwipeRefreshLayout.OnRefre
 
         onLoadingSwipeRefresh("");
 
+
+
+
+
+
         errorLayout = view.findViewById(R.id.errorLayout);
         errorImage =view.findViewById(R.id.errorImage);
         errorTitle = view.findViewById(R.id.errorTitle);
@@ -115,8 +104,12 @@ public class LocalNewsTab extends Fragment implements SwipeRefreshLayout.OnRefre
 
 
 
+
+
+
         return view;
     }
+
 
 
 
@@ -129,7 +122,7 @@ public class LocalNewsTab extends Fragment implements SwipeRefreshLayout.OnRefre
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         //final String country = Utils.getCountry();
-        String source_country = "gb";
+        String source_country = "us";
         String language = "en";
 
         Call<News> call;
@@ -247,7 +240,6 @@ public class LocalNewsTab extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void onRefresh() {
-
         LoadJson("");
     }
 
@@ -278,6 +270,8 @@ public class LocalNewsTab extends Fragment implements SwipeRefreshLayout.OnRefre
             }
         });
     }
+
+
 
 
 }
