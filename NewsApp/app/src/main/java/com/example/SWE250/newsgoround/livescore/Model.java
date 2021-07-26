@@ -30,11 +30,23 @@ public class Model {
         return date;
     }
 
+    public void setDate(String date) {
+        this.date =  date;
+    }
+
     public String getTeam1() {
         return team1;
     }
 
+    public String setTeam1(String setTeam1) {
+        this.setTeam1 = setTeam1;
+    }
+
     public String getTeam2() {
         return team2;
+    }
+
+    public String setTeam2(String setTeam2) {
+        this.setTeam2 = setTeam2;
     }
 }
